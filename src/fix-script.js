@@ -24,17 +24,16 @@ function updateProject (project) {
 			const devConfigs = `\\"+(${configurations}${configurations.length ? '|' : ''}Debug)\\"`;
 			env.DEVELOPMENT_BUILD_CONFIGURATIONS = devConfigs;
 			env.NODE_BINARY = env.NODE_BINARY || 'node';
+			env.ENTRY_FILE = '\"app/index.js\"';
 
 			const exports = Object.keys(env)
 				.map((key) => [key, env[key]])
 				.map(([key, value]) => `export ${key}=${value}`);
 
-			const entry_file = `export ENTRY_FILE=\"app/index.js\"`
 			const runCommand = `${nodeCommand}../../node_modules/react-native-schemes-manager/lib/react-native-xcode.sh`;
 
 			const commands = [
 				...exports,
-				entry_file,
 				runCommand,
 			];
 
